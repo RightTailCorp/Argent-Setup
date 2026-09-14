@@ -1,4 +1,4 @@
-# Argent Setup UI.
+# Argent Setup UI..
 
 Minimal Setup wizard prototype for Argent Job Scheduler / Queue Engine.
 
