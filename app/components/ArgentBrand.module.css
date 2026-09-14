@@ -12,20 +12,20 @@
 }
 
 .wordmarkText {
-  font-family: "Roboto Slab", Georgia, "Times New Roman", serif;
+  font-family: "Zilla Slab", Georgia, "Times New Roman", serif;
   font-weight: 700;
-  font-size: 20px;
-  letter-spacing: 0.2em;
+  font-size: 22px;
+  letter-spacing: 0.18em;
   color: #ffffff;
 }
 
 .compact .wordmarkText {
   font-size: 18px;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
 }
 
 .reg {
-  font-family: "Roboto Slab", Georgia, serif;
+  font-family: "Zilla Slab", Georgia, serif;
   font-size: 8px;
   font-weight: 700;
   color: rgba(255, 255, 255, 0.85);

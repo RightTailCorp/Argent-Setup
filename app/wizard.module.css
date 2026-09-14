@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Roboto+Slab:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Zilla+Slab:wght@600;700&display=swap");
 
 .page {
   min-height: 100vh;
@@ -109,7 +109,7 @@
 }
 
 .sidebarScroll::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
 }
 
 .sidebarScroll::-webkit-scrollbar-track {
@@ -117,12 +117,12 @@
 }
 
 .sidebarScroll::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.28);
   border-radius: 999px;
 }
 
 .sidebarScroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.45);
 }
 
 .setupLabel {
@@ -260,6 +260,7 @@
   font-weight: 600;
   color: #0066cc;
   letter-spacing: 0.01em;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
 }
 
 .progressMeta {
@@ -306,20 +307,25 @@
 }
 
 .content::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 .content::-webkit-scrollbar-track {
   background: transparent;
+  margin: 8px 0;
 }
 
 .content::-webkit-scrollbar-thumb {
-  background: #c5d0dc;
+  background: rgba(100, 116, 139, 0.4);
   border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
 .content::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: rgba(0, 102, 204, 0.5);
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
 .contentInner {
@@ -345,6 +351,7 @@
   letter-spacing: -0.03em;
   color: #0b1f3a;
   line-height: 1.2;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
 }
 
 .lead {
@@ -457,8 +464,12 @@
 }
 
 .licenseBox::-webkit-scrollbar-thumb {
-  background: #c5d0dc;
+  background: rgba(100, 116, 139, 0.4);
   border-radius: 999px;
+}
+
+.licenseBox::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 102, 204, 0.5);
 }
 
 .choice {

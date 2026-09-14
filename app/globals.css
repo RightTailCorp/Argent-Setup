@@ -8,7 +8,7 @@ body {
   padding: 0;
   height: 100%;
   min-height: 100%;
-  font-family: "DM Sans", "Segoe UI", system-ui, sans-serif;
+  font-family: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
   background: #0b1f3a;
   color: #0f172a;
   -webkit-font-smoothing: antialiased;
@@ -17,8 +17,8 @@ body {
 }
 
 *::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 *::-webkit-scrollbar-track {
@@ -26,12 +26,16 @@ body {
 }
 
 *::-webkit-scrollbar-thumb {
-  background: #c5d0dc;
+  background: rgba(100, 116, 139, 0.45);
   border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: rgba(0, 102, 204, 0.55);
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
 button,
