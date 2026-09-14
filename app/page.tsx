@@ -109,7 +109,7 @@ export default function HomePage() {
     return true;
   };
 
-  const onNext = () => {
+  const goNext = () => {
     if (step === 9) {
       setStep(0);
       setProgress(0);
@@ -129,6 +129,10 @@ export default function HomePage() {
     }
     setStep((s) => Math.min(9, s + 1));
   };
+
+  useEffect(() => {
+    document.getElementById("wizard-content")?.scrollTo({ top: 0, behavior: "smooth" });
+  }, [step]);
 
   const onOdbcNo = () => {
     setShowOdbcDialog(false);
@@ -169,6 +173,9 @@ export default function HomePage() {
               Protected by copyright and international treaties. Unauthorized copying or
               distribution may bring civil and criminal penalties.
             </p>
+            <button type="button" className={styles.welcomeCta} onClick={goNext}>
+              Get started
+            </button>
           </>
         );
       case 1:
@@ -630,7 +637,7 @@ This product is protected by U.S. Patents including 6483813; 511167; 511346; 530
           </header>
 
           <div className={styles.body}>
-          <div className={styles.content}>
+          <div className={styles.content} id="wizard-content">
             <div className={styles.contentInner}>{content}</div>
           </div>
           <footer className={styles.footer}>
@@ -661,7 +668,7 @@ This product is protected by U.S. Patents including 6483813; 511167; 511346; 530
                 type="button"
                 className={styles.primaryBtn}
                 disabled={nextDisabled}
-                onClick={onNext}
+                onClick={goNext}
               >
                 {nextLabel}
               </button>
