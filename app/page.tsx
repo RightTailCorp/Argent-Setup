@@ -755,33 +755,35 @@ This product is protected by U.S. Patents including 6483813; 511167; 511346; 530
     <div className={styles.page}>
       <div className={styles.shell}>
         <aside className={styles.sidebar}>
-          <div className={styles.sidebarHead}>
-            <ArgentBrand />
-          </div>
-          <div className={styles.sidebarScroll}>
-            <div className={styles.setupLabel}>Self-contained Setup</div>
-            <p className={styles.productLines}>
-              Job Scheduler 10.0-2401-64W-A
-              <br />
-              Queue Engine 10.0-2401-64W-A
-            </p>
-            <ol className={styles.stepList}>
-              {STEPS.map((label, i) => {
-                const current = i === step;
-                const done = i < step;
-                const cls = current
-                  ? styles.stepCurrent
-                  : done
-                    ? styles.stepDone
-                    : styles.stepTodo;
-                return (
-                  <li key={label} className={`${styles.stepItem} ${cls}`}>
-                    <span className={styles.stepNum}>{done && !current ? "✓" : i + 1}</span>
-                    <span className={styles.stepLabel}>{label}</span>
-                  </li>
-                );
-              })}
-            </ol>
+          <div className={styles.sidebarInner}>
+            <div className={styles.sidebarBrand}>
+              <ArgentBrand />
+              <div className={styles.setupLabel}>Self-contained Setup</div>
+              <p className={styles.productLines}>
+                Job Scheduler 10.0-2401-64W-A
+                <br />
+                Queue Engine 10.0-2401-64W-A
+              </p>
+            </div>
+            <div className={styles.sidebarScroll}>
+              <ol className={styles.stepList}>
+                {STEPS.map((label, i) => {
+                  const current = i === step;
+                  const done = i < step;
+                  const cls = current
+                    ? styles.stepCurrent
+                    : done
+                      ? styles.stepDone
+                      : styles.stepTodo;
+                  return (
+                    <li key={label} className={`${styles.stepItem} ${cls}`}>
+                      <span className={styles.stepNum}>{done && !current ? "✓" : i + 1}</span>
+                      <span className={styles.stepLabel}>{label}</span>
+                    </li>
+                  );
+                })}
+              </ol>
+            </div>
             <p className={styles.sidebarHelp}>
               Questions?{" "}
               <a href="https://help.argent.com" target="_blank" rel="noreferrer">
