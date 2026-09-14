@@ -2,7 +2,6 @@
   display: inline-flex;
   align-items: flex-start;
   line-height: 1;
-  background: transparent;
 }
 
 .compact {
@@ -14,26 +13,26 @@
 .wordmarkText {
   font-family: "Roboto Slab", Georgia, "Times New Roman", serif;
   font-weight: 700;
-  font-size: 26px;
-  letter-spacing: 0.22em;
-  color: #0066cc;
-  background: transparent;
+  font-size: 22px;
+  letter-spacing: 0.28em;
+  color: #ffffff;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
 }
 
 .compact .wordmarkText {
-  font-size: 20px;
-  letter-spacing: 0.18em;
+  font-size: 18px;
+  letter-spacing: 0.22em;
 }
 
 .reg {
   font-family: "Roboto Slab", Georgia, serif;
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 700;
-  color: #0066cc;
-  margin-left: 2px;
-  margin-top: 2px;
+  color: rgba(255, 255, 255, 0.85);
+  margin-left: 1px;
+  margin-top: 1px;
 }
 
 .compact .reg {
-  font-size: 8px;
+  font-size: 7px;
 }
