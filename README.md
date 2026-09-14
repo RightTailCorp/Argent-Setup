@@ -1,19 +1,18 @@
 # Argent Setup UI
 
-Minimal, customer-friendly Setup wizard prototype for Argent Job Scheduler / Queue Engine.
+Minimal Setup wizard prototype for Argent Job Scheduler / Queue Engine.
 
-## Client goals reflected here
+## Client goals
 
-- Simple path for distracted admins — short copy, one job per screen, clear progress
-- **No secondary .NET downloads** — Setup is self-contained; welcome screen states this explicitly
-- Same functional fields as legacy Setup (license, node, install/remove, paths, service/SQL, customer, progress, done)
-- Overloaded “Service Startup Info” split into **Folders** + **Service & SQL**
-- ODBC “No” keeps the user in Setup (SQL unchecked) instead of exiting
+- Simple path for distracted admins
+- **No secondary .NET downloads** — Setup is self-contained
+- Same functional fields as legacy Setup
+- Service Startup Info split into **Folders** + **Service & SQL**
+- ODBC “No” keeps the user in Setup (SQL unchecked)
 
-## Web preview (shareable)
+## Local
 
 ```bash
-cd web
 npm install
 npm run dev
 ```
@@ -22,10 +21,8 @@ Open http://localhost:3000
 
 ## Deploy on Vercel
 
-1. Import [RightTailCorp/Argent-Setup](https://github.com/RightTailCorp/Argent-Setup)
-2. Set **Root Directory** to `web`
-3. Framework: Next.js (auto) → Deploy
+Import this repo — Root Directory stays **`.`** (repo root). Framework: Next.js.
 
-## WPF shell (.NET Framework 4.8)
+## WPF shell
 
-Open `ArgentSetupUi.sln` in VS2022 — UI-only, no install engine.
+`ArgentSetupUi.sln` — .NET Framework 4.8 UI-only prototype (not used by Vercel).
