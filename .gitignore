@@ -1,0 +1,15 @@
+node_modules/
+.next/
+out/
+dist/
+build/
+*.log
+.DS_Store
+.vercel
+.env
+.env.local
+.env*.local
+*.user
+bin/
+obj/
+.vs/

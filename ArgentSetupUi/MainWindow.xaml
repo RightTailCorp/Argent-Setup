@@ -1,0 +1,68 @@
+<Window x:Class="Argent.SetupUi.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Argent Job Scheduler Setup"
+        Width="980" Height="680"
+        MinWidth="880" MinHeight="620"
+        WindowStartupLocation="CenterScreen"
+        Background="White"
+        FontFamily="Segoe UI">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Step sidebar -->
+        <Border Grid.Column="0" Background="{StaticResource SidebarBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,1,0">
+            <StackPanel Margin="20,24,16,24">
+                <TextBlock Text="Argent Setup" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource PrimaryBrush}" Margin="0,0,0,4"/>
+                <TextBlock Text="{Binding ProductLine1}" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" TextWrapping="Wrap" Margin="0,0,0,2"/>
+                <TextBlock Text="{Binding ProductLine2}" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" TextWrapping="Wrap" Margin="0,0,0,20"/>
+
+                <ItemsControl x:Name="StepList">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,0,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="28"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.Column="0" Width="22" Height="22" CornerRadius="11"
+                                        Background="{Binding CircleBrush}" VerticalAlignment="Top" Margin="0,1,0,0">
+                                    <TextBlock Text="{Binding IndexDisplay}" FontSize="11" FontWeight="SemiBold"
+                                               Foreground="{Binding IndexForeground}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <TextBlock Grid.Column="1" Text="{Binding Title}" FontSize="13"
+                                           Foreground="{Binding TitleBrush}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Border>
+
+        <!-- Main -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" Padding="32,28,32,16">
+                <ContentControl x:Name="PageHost"/>
+            </ScrollViewer>
+
+            <Border Grid.Row="1" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,1,0,0" Padding="32,16">
+                <Grid>
+                    <TextBlock x:Name="InlineValidation" Style="{StaticResource ValidationText}" VerticalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button x:Name="BackButton" Content="Back" Style="{StaticResource SecondaryButton}" Margin="0,0,8,0" Click="BackButton_Click"/>
+                        <Button x:Name="NextButton" Content="Next" Style="{StaticResource PrimaryButton}" Margin="0,0,8,0" Click="NextButton_Click"/>
+                        <Button x:Name="CancelButton" Content="Cancel" Style="{StaticResource SecondaryButton}" Click="CancelButton_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

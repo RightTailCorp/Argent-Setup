@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>Argent.SetupUi</RootNamespace>
+    <AssemblyName>ArgentSetupUi</AssemblyName>
+    <ApplicationIcon />
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+</Project>
