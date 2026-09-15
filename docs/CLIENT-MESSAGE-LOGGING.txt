@@ -1,0 +1,42 @@
+Hi —
+
+Setup logging is in place on the new Windows Setup UI, matching the style of your SAMPLE.TXT / legacy SETUP_LOG.TXT.
+
+What was done
+-------------
+Every meaningful Setup event is appended to a plain-text log file while the wizard runs. Lines use the same timestamp format and prefix style as your sample (date/time with milliseconds, machine name, user, process/thread ids, sequence number, then the message).
+
+Where to find the log
+---------------------
+On the machine where Setup is run:
+
+  %LOCALAPPDATA%\Argent\Setup\LOGS\SETUP_LOG.TXT
+
+Typical full path:
+
+  C:\Users\<WindowsUser>\AppData\Local\Argent\Setup\LOGS\SETUP_LOG.TXT
+
+The LOGS folder is created automatically the first time Setup starts. A short header (product name, copyright, patents, support contact) is written once; after that, events append for each session.
+
+What it logs
+------------
+- Setup session start (machine, user, product, version, 64-bit)
+- Wizard step views and navigation (Continue / Back / Cancel)
+- License accept / decline
+- System check results (already present vs will install from package)
+- Install choices (node, products, operation)
+- Paths & license file / folder selections
+- Account / email / SQL Server on-off (passwords are never written)
+- Validation messages
+- ODBC / SQL decisions (including turning SQL off → Codebase note)
+- Install progress stages and successful completion
+
+Reference sample (same line style) is in the repo as docs\SAMPLE.TXT.
+
+Deliverable
+-----------
+Please use the Windows package only: ArgentSetup-Exe.zip
+Unzip, keep the folder together, and run ArgentSetup.exe.
+
+Thanks,
+Right Tail

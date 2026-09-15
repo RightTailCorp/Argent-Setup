@@ -1,53 +1,39 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Zilla+Slab:wght@600;700&display=swap");
 
 .page {
-  min-height: 100vh;
-  min-height: 100dvh;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+  align-items: stretch;
+  justify-content: stretch;
+  padding: 0;
+  margin: 0;
   box-sizing: border-box;
-  background:
-    radial-gradient(ellipse 80% 60% at 10% 0%, rgba(0, 102, 204, 0.45), transparent 55%),
-    radial-gradient(ellipse 70% 50% at 90% 100%, rgba(196, 30, 58, 0.18), transparent 50%),
-    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(14, 165, 233, 0.12), transparent 60%),
-    linear-gradient(160deg, #071628 0%, #0b2a4a 45%, #0a1c33 100%);
-  position: relative;
+  background: #fff;
   overflow: hidden;
 }
 
 .page::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
-  pointer-events: none;
+  display: none;
 }
 
 .shell {
   position: relative;
   z-index: 1;
-  width: min(1080px, 100%);
-  height: calc(100vh - 40px);
-  height: calc(100dvh - 40px);
-  max-height: calc(100dvh - 40px);
-  min-height: 520px;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  min-height: 0;
   display: grid;
-  grid-template-columns: 280px minmax(0, 1fr);
+  grid-template-columns: 320px minmax(0, 1fr);
   grid-template-rows: minmax(0, 1fr);
-  background: rgba(255, 255, 255, 0.97);
-  border-radius: 20px;
+  background: #fff;
+  border-radius: 0;
   overflow: hidden;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.12),
-    0 24px 64px rgba(0, 0, 0, 0.35),
-    0 8px 24px rgba(0, 102, 204, 0.15);
-  animation: shellIn 0.45s ease-out;
+  box-shadow: none;
+  animation: none;
 }
 
 @keyframes shellIn {
@@ -139,6 +125,8 @@
   font-size: 12px;
   line-height: 1.55;
   color: rgba(255, 255, 255, 0.72);
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .stepList {
@@ -300,36 +288,38 @@
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 28px 32px 24px;
+  padding: 28px 40px 24px;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: #c5d0dc transparent;
+  scrollbar-width: auto;
+  scrollbar-color: #94a3b8 #eef2f7;
 }
 
 .content::-webkit-scrollbar {
-  width: 8px;
+  width: 16px;
 }
 
 .content::-webkit-scrollbar-track {
-  background: transparent;
-  margin: 8px 0;
+  background: #eef2f7;
+  margin: 4px 0;
+  border-radius: 8px;
 }
 
 .content::-webkit-scrollbar-thumb {
-  background: rgba(100, 116, 139, 0.4);
-  border-radius: 999px;
-  border: 2px solid transparent;
+  background: #94a3b8;
+  border-radius: 8px;
+  border: 3px solid #eef2f7;
   background-clip: padding-box;
 }
 
 .content::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 102, 204, 0.5);
-  border: 2px solid transparent;
+  background: #0066cc;
+  border: 3px solid #eef2f7;
   background-clip: padding-box;
 }
 
 .contentInner {
-  max-width: 560px;
+  max-width: none;
+  width: 100%;
   animation: fadeUp 0.35s ease-out;
 }
 
@@ -345,8 +335,8 @@
 }
 
 .title {
-  margin: 0 0 10px;
-  font-size: 28px;
+  margin: 0 0 8px;
+  font-size: 22px;
   font-weight: 700;
   letter-spacing: -0.03em;
   color: #0b1f3a;
@@ -408,6 +398,13 @@
   font-weight: 600;
   color: #475569;
   margin: 0 0 7px;
+  letter-spacing: 0.01em;
+}
+
+.required {
+  color: #dc2626;
+  font-weight: 700;
+  font-size: 12px;
   letter-spacing: 0.01em;
 }
 

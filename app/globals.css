@@ -6,35 +6,45 @@ html,
 body {
   margin: 0;
   padding: 0;
+  width: 100%;
   height: 100%;
-  min-height: 100%;
+  overflow: hidden;
   font-family: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
-  background: #0b1f3a;
+  background: #ffffff;
   color: #0f172a;
   -webkit-font-smoothing: antialiased;
-  scrollbar-width: thin;
-  scrollbar-color: #94a3b8 transparent;
+  scrollbar-width: auto;
+  scrollbar-color: #94a3b8 #eef2f7;
+}
+
+/* Next.js inserts wrappers between body and the page — force them full size */
+body,
+body > div,
+body > div > div {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
 }
 
 *::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 16px;
+  height: 16px;
 }
 
 *::-webkit-scrollbar-track {
-  background: transparent;
+  background: #eef2f7;
 }
 
 *::-webkit-scrollbar-thumb {
-  background: rgba(100, 116, 139, 0.45);
-  border-radius: 999px;
-  border: 2px solid transparent;
+  background: #94a3b8;
+  border-radius: 8px;
+  border: 3px solid #eef2f7;
   background-clip: padding-box;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 102, 204, 0.55);
-  border: 2px solid transparent;
+  background: #0066cc;
+  border: 3px solid #eef2f7;
   background-clip: padding-box;
 }
 

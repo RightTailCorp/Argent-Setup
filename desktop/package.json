@@ -1,0 +1,16 @@
+{
+  "name": "argent-setup-desktop",
+  "version": "1.0.0",
+  "private": true,
+  "main": "main.js",
+  "description": "Argent Setup desktop UI",
+  "author": "Right Tail Corp",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-packager . ArgentSetup --platform=win32 --arch=x64 --out=../ArgentSetup-Exe --overwrite --asar --prune=true"
+  },
+  "devDependencies": {
+    "electron": "^28.3.3",
+    "electron-packager": "^17.1.2"
+  }
+}

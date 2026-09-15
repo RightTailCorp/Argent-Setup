@@ -2,11 +2,12 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { ArgentBrand } from "./components/ArgentBrand";
+import { setupLog, setupLogLabel } from "./lib/setupLog";
 import styles from "./wizard.module.css";
 
 /**
  * Original legacy Setup: 9 screens.
- * Redesign: short flow + system check — if a required component is already on the PC, skip it;
+ * Redesign: short flow + system check — if a required component is already on the computer, skip it;
  * if missing, Setup installs it from the bundled package (no secondary download).
  */
 const STEPS = [
@@ -64,12 +65,25 @@ const PREREQ_SEED: Prerequisite[] = [
 
 /** Simulated scan results — web prototype (real Setup would query the machine). */
 const SCAN_RESULTS: Record<string, CheckStatus> = {
-  dotnet: "found", // already on this PC (matches your 4.8 setup log)
+  dotnet: "found", // already on this computer (matches your 4.8 setup log)
   vcredist: "will_install", // missing → install from Setup package
   odbc: "will_install",
   admin: "found",
   disk: "found",
 };
+
+function prereqStatusLabel(s: CheckStatus) {
+  switch (s) {
+    case "pending":
+      return "Waiting";
+    case "scanning":
+      return "Checking…";
+    case "found":
+      return "Already on this computer";
+    case "will_install":
+      return "Missing — Setup will install";
+  }
+}
 
 export default function HomePage() {
   const [step, setStep] = useState(0);
@@ -79,12 +93,14 @@ export default function HomePage() {
   const [installQueue, setInstallQueue] = useState(true);
   const [opIndex, setOpIndex] = useState<OpIndex>(0);
   const [licensePath, setLicensePath] = useState(
-    "D:\\ARGENT_JOB_SCHEDULER_10_0A_2401_A\\ARGENT_INSTALL_JOB_SCHEDULER_10_0_2401_64W_A"
+    String.raw`D:\ARGENT_JOB_SCHEDULER_10_0A_2401_A\ARGENT_INSTALL_JOB_SCHEDULER_10_0_2401_64W_A`
   );
   const [standaloneQE, setStandaloneQE] = useState(true);
   const [qeKey, setQeKey] = useState("NC02-CI61-HE28-OL51-2DDF");
-  const [schedulerPath, setSchedulerPath] = useState("C:\\ARGENT\\SchedulingEngine");
-  const [queuePath, setQueuePath] = useState("C:\\ARGENT\\QueueEngine");
+  const [schedulerPath, setSchedulerPath] = useState(String.raw`C:\ARGENT\SchedulingEngine`);
+  const [queuePath, setQueuePath] = useState(String.raw`C:\ARGENT\QueueEngine`);
+  const sourceInputPath =
+    String.raw`D:\ARGENT_JOB_SCHEDULER_10_0A_2401_A\_ARGENT_INSTALL_JOB_SCHEDULER_10_0_2401_64W_A`;
   const [useGmsa, setUseGmsa] = useState(false);
   const [account, setAccount] = useState("DESKTOP-IT4EK29\\layib");
   const [password, setPassword] = useState("");
@@ -92,7 +108,6 @@ export default function HomePage() {
   const [useSql, setUseSql] = useState(true);
   const [odbcDsn, setOdbcDsn] = useState("");
   const [showOdbcDialog, setShowOdbcDialog] = useState(false);
-  const [showMoreContact, setShowMoreContact] = useState(false);
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
   const [company, setCompany] = useState("");
@@ -122,6 +137,16 @@ export default function HomePage() {
   const foundCount = prereqs.filter((p) => p.status === "found").length;
 
   useEffect(() => {
+    // No Ctrl+wheel zoom — it was shrinking the wizard into the corner.
+    // Ctrl+/- still works from the desktop main process.
+    document.documentElement.style.zoom = "";
+    document.documentElement.style.width = "100%";
+    document.documentElement.style.height = "100%";
+    document.body.style.width = "100%";
+    document.body.style.height = "100%";
+  }, []);
+
+  useEffect(() => {
     if (step !== 1) return;
     if (scanDone || scanning) return;
 
@@ -145,6 +170,8 @@ export default function HomePage() {
             p.id === id ? { ...p, status: SCAN_RESULTS[id] ?? "found" } : p
           )
         );
+        const result = SCAN_RESULTS[id] ?? "found";
+        setupLog(`System check: ${PREREQ_SEED[i].name} — ${prereqStatusLabel(result)}`);
         i += 1;
         window.setTimeout(run, 180);
       }, 420);
@@ -202,32 +229,68 @@ export default function HomePage() {
   const validate = (): boolean => {
     setValidation("");
     if (step === 0 && !licenseAccepted) {
-      setValidation("Accept the license to continue.");
+      setValidation("Accept the license to continue");
+      setupLog("Validation: Accept the license to continue");
       return false;
     }
     if (step === 1 && !scanDone) {
-      setValidation("Wait for the system check to finish.");
+      setValidation("Wait for the system check to finish");
+      setupLog("Validation: Wait for the system check to finish");
       return false;
     }
     if (step === 2 && !installScheduler && !installQueue) {
-      setValidation("Pick at least one product.");
+      setValidation("Pick at least one product");
+      setupLog("Validation: Pick at least one product");
       return false;
     }
     if (step === 4) {
       if (password && password !== confirmPassword) {
-        setValidation("Passwords do not match.");
+        setValidation("Passwords do not match");
+        setupLog("Validation: Passwords do not match");
         return false;
       }
       if (!email.trim()) {
-        setValidation("Email is required.");
+        setValidation("Email is required");
+        setupLog("Validation: Email is required");
         return false;
       }
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.trim())) {
-        setValidation("Enter a valid email.");
+        setValidation("Enter a valid email");
+        setupLog("Validation: Enter a valid email");
         return false;
       }
     }
     return true;
+  };
+
+  const logStepSummaryBeforeAdvance = () => {
+    switch (step) {
+      case 0:
+        setupLog(
+          licenseAccepted ? "User accepted license agreement" : "User declined license agreement"
+        );
+        break;
+      case 1:
+        setupLog("User continued after system check");
+        break;
+      case 2:
+        setupLogLabel("Install Node", installNode);
+        setupLog(`Install Scheduler: ${installScheduler}`);
+        setupLog(`Install Queue Engine: ${installQueue}`);
+        setupLog(`Install operation index: ${opIndex}`);
+        break;
+      case 3:
+        setupLog(`License file '${licensePath}'`);
+        setupLog(`Scheduler path '${schedulerPath}'`);
+        setupLog(`Queue path '${queuePath}'`);
+        setupLog(`Standalone Queue Engine: ${standaloneQE}`);
+        break;
+      case 4:
+        setupLog(`Service account '${account}'`);
+        setupLog(`Use SQL Server: ${useSql}`);
+        setupLog(`Email '${email}'`);
+        break;
+    }
   };
 
   const goNext = () => {
@@ -242,48 +305,59 @@ export default function HomePage() {
     }
     if (!validate()) return;
 
+    logStepSummaryBeforeAdvance();
+
     if (step === 4 && useSql && !odbcDsn) {
       setShowOdbcDialog(true);
       return;
     }
 
     if (step === 4) {
+      setupLog("Install started");
       setStep(INSTALLING);
       return;
     }
-    setStep((s) => Math.min(DONE, s + 1));
+    setStep((s) => {
+      const next = Math.min(DONE, s + 1);
+      setupLog(`Advanced to step: ${STEPS[next]}`);
+      return next;
+    });
   };
 
   useEffect(() => {
     document.getElementById("wizard-content")?.scrollTo({ top: 0, behavior: "smooth" });
+    setupLog(`View step: ${STEPS[step]}`);
+  }, [step]);
+
+  useEffect(() => {
+    if (step !== INSTALLING) return;
+    setupLog(progressStatus);
+  }, [progressStatus, step]);
+
+  useEffect(() => {
+    if (step === DONE) setupLog("Install completed successfully");
   }, [step]);
 
   const onOdbcNo = () => {
     setShowOdbcDialog(false);
     setUseSql(false);
     setOdbcDsn("");
-    setValidation("SQL Server option turned off. You stay in Setup — nothing was cancelled.");
+    setupLog("Failed to open database — user opted to turn off SQL Server");
+    setValidation(
+      "SQL Server option turned off -- Codebase will be used (Codebase is only used for testing and evaluation)"
+    );
   };
 
   const onOdbcYes = () => {
     setShowOdbcDialog(false);
     setOdbcDsn("ArgentScheduler_DSN");
+    setupLog("ODBC DSN selected 'ArgentScheduler_DSN'");
     setValidation("");
+    setupLog("Install started");
     setStep(INSTALLING);
   };
 
-  const statusLabel = (s: CheckStatus) => {
-    switch (s) {
-      case "pending":
-        return "Waiting";
-      case "scanning":
-        return "Checking…";
-      case "found":
-        return "Already on this PC";
-      case "will_install":
-        return "Missing — Setup will install";
-    }
-  };
+  const statusLabel = prereqStatusLabel;
 
   const content = useMemo(() => {
     switch (step) {
@@ -292,8 +366,8 @@ export default function HomePage() {
           <>
             <h1 className={styles.title}>Install Argent the easy way</h1>
             <p className={styles.lead}>
-              Setup checks your PC first. If something required is already there, we skip it. If
-              not, we install it from this package — no separate .NET downloads.
+              Setup checks your computer first. If something required is already there, we skip it.
+              If not, we install it from this package — no separate .NET downloads.
             </p>
             <div className={styles.promise}>
               <div>
@@ -333,9 +407,6 @@ This product is protected by U.S. Patents including 6483813; 511167; 511346; 530
               />
               I don&apos;t accept
             </label>
-            <button type="button" className={styles.welcomeCta} onClick={goNext}>
-              Get started
-            </button>
           </>
         );
       case 1:
@@ -343,8 +414,8 @@ This product is protected by U.S. Patents including 6483813; 511167; 511346; 530
           <>
             <h1 className={styles.title}>System check</h1>
             <p className={styles.lead}>
-              Scanning this PC for what Setup needs. Found items are left alone. Missing items are
-              installed from the Setup package — still no web download.
+              Scanning this computer for what Setup needs. Found items are left alone. Missing
+              items are installed from the Setup package — still no web download.
             </p>
             <ul className={styles.checkList}>
               {prereqs.map((p) => (
@@ -500,11 +571,7 @@ This product is protected by U.S. Patents including 6483813; 511167; 511346; 530
             />
             <div className={styles.sectionLabel}>Install folders</div>
             <label className={styles.label}>Source (input)</label>
-            <input
-              className={styles.input}
-              value="D:\\ARGENT_JOB_SCHEDULER_10_0A_2401_A\\_ARGENT_INSTALL_JOB_SCHEDULER_10_0_2401_64W_A"
-              readOnly
-            />
+            <input className={styles.input} value={sourceInputPath} readOnly />
             <label className={styles.label}>Job Scheduler</label>
             <input
               className={styles.input}
@@ -581,12 +648,14 @@ This product is protected by U.S. Patents including 6483813; 511167; 511346; 530
               </button>
             </div>
             <div className={styles.sectionLabel}>Registration</div>
-            <label className={styles.label}>Email</label>
+            <label className={styles.label}>
+              Email <span className={styles.required}>required</span>
+            </label>
             <input
               className={styles.input}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="required"
+              aria-required="true"
             />
             <div className={styles.fieldGrid}>
               <div>
@@ -606,74 +675,64 @@ This product is protected by U.S. Patents including 6483813; 511167; 511346; 530
                 />
               </div>
             </div>
-            <button
-              type="button"
-              className={styles.ghostBtn}
-              style={{ padding: "6px 0", minWidth: 0 }}
-              onClick={() => setShowMoreContact((v) => !v)}
-            >
-              {showMoreContact ? "Hide address fields" : "More address fields (optional)"}
-            </button>
-            {showMoreContact && (
-              <div className={styles.fieldGrid} style={{ marginTop: 8 }}>
-                <div className={styles.fieldFull}>
-                  <label className={styles.label}>Address</label>
-                  <input
-                    className={styles.input}
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label className={styles.label}>Town / City</label>
-                  <input
-                    className={styles.input}
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label className={styles.label}>State / Province</label>
-                  <input
-                    className={styles.input}
-                    value={stateProv}
-                    onChange={(e) => setStateProv(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label className={styles.label}>ZIP / Postcode</label>
-                  <input
-                    className={styles.input}
-                    value={zip}
-                    onChange={(e) => setZip(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label className={styles.label}>Country</label>
-                  <input
-                    className={styles.input}
-                    value={country}
-                    onChange={(e) => setCountry(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label className={styles.label}>Phone</label>
-                  <input
-                    className={styles.input}
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label className={styles.label}>Sales rep</label>
-                  <input
-                    className={styles.input}
-                    value={salesRep}
-                    onChange={(e) => setSalesRep(e.target.value)}
-                  />
-                </div>
+            <div className={styles.fieldGrid} style={{ marginTop: 8 }}>
+              <div className={styles.fieldFull}>
+                <label className={styles.label}>Address</label>
+                <input
+                  className={styles.input}
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                />
               </div>
-            )}
+              <div>
+                <label className={styles.label}>Town / City</label>
+                <input
+                  className={styles.input}
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className={styles.label}>State / Province</label>
+                <input
+                  className={styles.input}
+                  value={stateProv}
+                  onChange={(e) => setStateProv(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className={styles.label}>ZIP / Postcode</label>
+                <input
+                  className={styles.input}
+                  value={zip}
+                  onChange={(e) => setZip(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className={styles.label}>Country</label>
+                <input
+                  className={styles.input}
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className={styles.label}>Phone</label>
+                <input
+                  className={styles.input}
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className={styles.label}>Sales rep</label>
+                <input
+                  className={styles.input}
+                  value={salesRep}
+                  onChange={(e) => setSalesRep(e.target.value)}
+                />
+              </div>
+            </div>
           </>
         );
       case 5:
@@ -734,7 +793,6 @@ This product is protected by U.S. Patents including 6483813; 511167; 511346; 530
     confirmPassword,
     useSql,
     odbcDsn,
-    showMoreContact,
     email,
     contact,
     company,
@@ -821,7 +879,10 @@ This product is protected by U.S. Patents including 6483813; 511167; 511346; 530
                   className={styles.ghostBtn}
                   disabled={!canCancel}
                   onClick={() => {
-                    if (window.confirm("Quit Setup?")) setStep(0);
+                    if (window.confirm("Quit Setup?")) {
+                      setupLog("User cancelled Setup");
+                      setStep(0);
+                    }
                   }}
                 >
                   Cancel
@@ -832,7 +893,11 @@ This product is protected by U.S. Patents including 6483813; 511167; 511346; 530
                   disabled={!canBack}
                   onClick={() => {
                     setValidation("");
-                    setStep((s) => Math.max(0, s - 1));
+                    setStep((s) => {
+                      const prev = Math.max(0, s - 1);
+                      setupLog(`User clicked Back — step: ${STEPS[prev]}`);
+                      return prev;
+                    });
                   }}
                 >
                   Back
