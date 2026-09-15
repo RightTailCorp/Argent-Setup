@@ -1,83 +1,50 @@
-Argent Setup — UI strings for client edit
-==========================================
-Source: current redesign (7-step wizard)
-Files: app/page.tsx · ArgentSetupUi (WPF)
+Argent Setup
+A R G E N T
+Argent Job Scheduler Setup
+Job Scheduler 10.0-2401-64W-A
+Queue Engine 10.0-2401-64W-A
+Questions -- help.Argent.com or Support@Argent.com
 
-HOW TO EDIT
-- Change only the text after each " = " (or inside a block).
-- Keep [PLACEHOLDERS] like [count], [seconds], [account] as-is.
-- Return this file with your edits; we will apply them in Setup.
+Start
+System check
+Install
+Paths & license
+Account
+Installing
+Done
 
-----------------------------------------------------------------------
-WINDOW / BRAND / SIDEBAR
-----------------------------------------------------------------------
-window.title = Argent Setup
-brand.wordmark = A R G E N T
-sidebar.setup_label = Self-contained Setup
-sidebar.product_line_1 = Job Scheduler 10.0-2401-64W-A
-sidebar.product_line_2 = Queue Engine 10.0-2401-64W-A
-sidebar.help = Questions?
-sidebar.help_link = help.Argent.com
-sidebar.help_url = https://help.argent.com
+Step [n] of [total] · [pct]%
 
-----------------------------------------------------------------------
-STEP NAMES (sidebar + step pill)
-----------------------------------------------------------------------
-step.1 = Start
-step.2 = System check
-step.3 = Install
-step.4 = Paths & license
-step.5 = Account
-step.6 = Installing
-step.7 = Done
+Cancel
+Back
+Get started
+Continue
+Looks good — continue
+Install
+Close
+Browse
+Advanced
+Quit Setup?
 
-progress.meta = Step [n] of [total] · [pct]%
+Accept the license to continue
+Wait for the system check to finish
+Pick at least one product
+Passwords do not match
+Email is required
+Enter a valid email
+SQL Server option turned off -- Codebase will be used (Codebase is only used for testing and evaluation)
 
-----------------------------------------------------------------------
-BUTTONS (shared)
-----------------------------------------------------------------------
-btn.cancel = Cancel
-btn.back = Back
-btn.get_started = Get started
-btn.continue = Continue
-btn.looks_good = Looks good — continue
-btn.install = Install
-btn.close = Close
-btn.browse = Browse
-btn.advanced = Advanced
-confirm.quit = Quit Setup?
+Couldn’t open that ODBC source
+Try another DSN? If you say No, you stay here — Setup does not exit.
+No — turn off SQL
+Yes — pick another
 
-----------------------------------------------------------------------
-VALIDATION / ERRORS
-----------------------------------------------------------------------
-err.accept_license = Accept the license to continue
-err.wait_system_check = Wait for the system check to finish
-err.pick_product = Pick at least one product
-err.passwords_mismatch = Passwords do not match
-err.email_required = Email is required
-err.email_invalid = Enter a valid email
-err.sql_turned_off = SQL Server option turned off -- Codebase will be used (Codebase is only used for testing and evaluation)
+Argent Job Scheduler Setup
+Argent Job Scheduler Setup
+Close other apps if you can, then accept the license.
+I accept the Agreement
+I don't accept
 
-----------------------------------------------------------------------
-ODBC DIALOG
-----------------------------------------------------------------------
-odbc.title = Couldn’t open that ODBC source
-odbc.body = Try another DSN? If you say No, you stay here — Setup does not exit.
-odbc.btn_no = No — turn off SQL
-odbc.btn_yes = Yes — pick another
-
-----------------------------------------------------------------------
-STEP 1 — START
-----------------------------------------------------------------------
-start.title = Install Argent the easy way
-start.lead = Setup checks your computer first. If something required is already there, we skip it. If not, we install it from this package — no separate .NET downloads.
-start.promise_bold = Self-contained Setup.
-start.promise_rest = Prerequisites ship inside the installer. You never chase “.Net 4.x.y.z…” from the web.
-start.copy = Close other apps if you can, then accept the license.
-start.accept = I accept the Agreement
-start.decline = I don't accept
-
-start.license_preview =
 Software License and Usage Agreement -- Rev 001/Sep 2023
 
 IMPORTANT - READ CAREFULLY
@@ -88,119 +55,93 @@ This product is protected by U.S. Patents including 6483813; 511167; 511346; 530
 
 [Full license text unchanged from production installer.]
 
-----------------------------------------------------------------------
-STEP 2 — SYSTEM CHECK
-----------------------------------------------------------------------
-check.title = System check
-check.lead = Scanning this computer for what Setup needs. Found items are left alone. Missing items are installed from the Setup package — still no web download.
-check.scanning = Checking your system… this takes a few seconds.
-check.summary_ok = [foundCount] already OK
-check.summary_missing = · [missingCount] will install from Setup
-check.summary_rest = Continue when you're ready — nothing leaves this machine for a second download.
-check.complete_bold = Check complete.
-check.complete_rest = Found items stay as-is. Missing items install from this Setup package — no web download.
+System check
+Scanning this computer for what Setup needs. Found items are left alone. Missing items are installed from the Setup package — still no web download.
+Checking your system… this takes a few seconds.
+[foundCount] already OK
+· [missingCount] will install from Setup
+Continue when you're ready
+Check complete
 
-check.status.waiting = Waiting
-check.status.scanning = Checking…
-check.status.found = Already on this computer
-check.status.will_install = Missing — Setup will install
+Waiting
+Checking…
+Already on this computer
+Missing — Setup will install
 
-check.item.dotnet.name = .NET Framework 4.8
-check.item.dotnet.detail = Required runtime for Setup and client tools
-check.item.vcredist.name = Visual C++ Redistributable
-check.item.vcredist.detail = Native libraries used by Queue Engine / services
-check.item.odbc.name = SQL Server ODBC Driver
-check.item.odbc.detail = Needed when SQL Server is selected as storage
-check.item.admin.name = Administrator rights
-check.item.admin.detail = Required to install Windows services and write Program Files
-check.item.disk.name = Disk space (≈ 500 MB free)
-check.item.disk.detail = On the drive you choose for install folders
+.NET Framework 4.8
+Required runtime for Setup and client tools
+Visual C++ Redistributable
+Native libraries used by Queue Engine / services
+SQL Server ODBC Driver
+Needed when SQL Server is selected as storage
+Administrator rights
+Required to install Windows services and write Program Files
+Disk space (≈ 500 MB free)
+On the drive you choose for install folders
 
-----------------------------------------------------------------------
-STEP 3 — WHAT TO INSTALL
-----------------------------------------------------------------------
-install.title = What to install
-install.lead = Node, operation, and products.
-install.label.account = Account
-install.label.domain_node = Domain / node
-install.label.queue_engine = Queue Engine
-install.label.job_scheduler = Job Scheduler
-install.value.not_available = Not available
-install.label.install_on_node = Install on node
-install.section.operation = Operation
-install.section.products = Products
+What to install
+Node, operation, and products
+Account
+Domain / node
+Queue Engine
+Job Scheduler
+Not available
+Install on node
+Operation
+Products
+Install Windows services and Argent Job Scheduler programs
+Install Argent Job Scheduler only
+Upgrade services and clients
+Deinstall
+Argent Job Scheduler
+Argent Queue Engine
 
-install.op.1 = Install Windows services + client programs
-install.op.2 = Install client programs only
-install.op.3 = Upgrade services and clients
-install.op.4 = Deinstall
+Paths & license
+License files and install folders — defaults match the current installer.
+Job Scheduler license file
+Standalone Queue Engine
+Queue Engine license key
+Install folders
+Source (input)
+Job Scheduler
+Queue Engine
 
-install.product.scheduler = Argent Job Scheduler
-install.product.queue = Argent Queue Engine
+Account & contact
+Service logon, SQL, and registration — then Install runs.
+Use Managed Service Account (gMSA)
+Account (Domain\User)
+Password
+Confirm
+SQL Server is the default -- CodeBase is not for production
+Use SQL Server (7.0+) as database storage
+No ODBC DSN yet
+DSN: [dsn]
+Registration
+Email
+required
+Contact
+Company
+Address
+Town / City
+State / Province
+ZIP / Postcode
+Country
+Phone
+Account Manager
 
-----------------------------------------------------------------------
-STEP 4 — PATHS & LICENSE
-----------------------------------------------------------------------
-paths.title = Paths & license
-paths.lead = License files and install folders — defaults match the current installer.
-paths.label.license_file = Job Scheduler license file
-paths.checkbox.standalone_qe = Standalone Queue Engine
-paths.label.qe_key = Queue Engine license key
-paths.section.folders = Install folders
-paths.label.source = Source (input)
-paths.label.scheduler = Job Scheduler
-paths.label.queue = Queue Engine
+Installing
+Preparing…
+Installing bundled: [name]…
+All prerequisites already present — copying Argent files…
+Installing bundled prerequisites…
+Copying Argent program files…
+Creating Queue Engine items…
+Finishing registry updates…
+Missing prerequisites being installed
 
-----------------------------------------------------------------------
-STEP 5 — ACCOUNT & CONTACT
-----------------------------------------------------------------------
-account.title = Account & contact
-account.lead = Service logon, SQL, and registration — then Install runs.
-account.checkbox.gmsa = Use Managed Service Account (gMSA)
-account.label.account = Account (Domain\User)
-account.label.password = Password
-account.label.confirm = Confirm
-account.sql_note = SQL Server is the default (not CodeBase). CodeBase is fine for a small eval — not for production.
-account.checkbox.sql = Use SQL Server (7.0+) as database storage
-account.dsn.none = No ODBC DSN yet
-account.dsn.selected = DSN: [dsn]
-account.section.registration = Registration
-account.label.email = Email
-account.label.required = required
-account.label.contact = Contact
-account.label.company = Company
-account.label.address = Address
-account.label.city = Town / City
-account.label.state = State / Province
-account.label.zip = ZIP / Postcode
-account.label.country = Country
-account.label.phone = Phone
-account.label.sales_rep = Sales rep
-
-----------------------------------------------------------------------
-STEP 6 — INSTALLING
-----------------------------------------------------------------------
-installing.title = Installing
-installing.status.preparing = Preparing…
-installing.status.bundled = Installing bundled: [name]…
-installing.status.all_present = All prerequisites already present — copying Argent files…
-installing.status.prereqs = Installing bundled prerequisites…
-installing.status.copying = Copying Argent program files…
-installing.status.queue_items = Creating Queue Engine items…
-installing.status.registry = Finishing registry updates…
-installing.note = Missing prerequisites are being laid down from the Setup package first, then Argent files.
-
-----------------------------------------------------------------------
-STEP 7 — DONE
-----------------------------------------------------------------------
-done.title = You're set
-done.lead = Installed in about [seconds] seconds.
-done.bullet.prereqs = Prerequisites: [foundCount] already present, [missingCount] installed from Setup.
-done.bullet.jobs = Sample jobs are ready in Job Scheduler — copy and edit as needed.
-done.bullet.queues = Sample queues/cmd files created. Default Queue Engine account: [account]
-done.bullet.support = Support: Support@Argent.com · help.Argent.com
-
-----------------------------------------------------------------------
-END
-----------------------------------------------------------------------
-Edit freely and send back. Prefer keeping keys on the left unchanged.
+You're set
+Installed in about [seconds] seconds.
+Prerequisites: [foundCount] already present, [missingCount] installed from Setup.
+Sample jobs are ready in Job Scheduler — copy and edit as needed.
+Sample queues/cmd files created. Default Queue Engine account: [account]
+Support: Support@Argent.com or help.Argent.com

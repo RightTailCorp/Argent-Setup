@@ -5,7 +5,6 @@ const fs = require("fs");
 const path = require("path");
 
 const ROOT = path.join(__dirname, "web");
-const PORT = 18787;
 
 // Prevent trackpad/Ctrl pinch from shrinking the UI into the corner
 app.commandLine.appendSwitch("disable-pinch");
@@ -53,21 +52,18 @@ function startServer() {
         res.end(String(err));
       }
     });
-    server.on("error", (err) => {
-      if (err && err.code === "EADDRINUSE") {
-        // Reuse existing local server from a previous run
-        resolve(null);
-        return;
-      }
-      reject(err);
+    server.on("error", reject);
+    // Bind to an ephemeral port so we never reuse a stale previous Setup process.
+    server.listen(0, "127.0.0.1", () => {
+      const addr = server.address();
+      resolve({ server, port: addr && addr.port });
     });
-    server.listen(PORT, "127.0.0.1", () => resolve(server));
   });
 }
 
 async function createWindow() {
   setupLog.logSessionStart();
-  await startServer();
+  const { port } = await startServer();
   const win = new BrowserWindow({
     width: 1100,
     height: 720,
@@ -124,7 +120,7 @@ async function createWindow() {
     }
   });
 
-  await win.loadURL(`http://127.0.0.1:${PORT}/`);
+  await win.loadURL(`http://127.0.0.1:${port}/`);
 }
 
 app.whenReady().then(createWindow);

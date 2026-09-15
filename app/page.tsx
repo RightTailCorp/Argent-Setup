@@ -364,15 +364,10 @@ export default function HomePage() {
       case 0:
         return (
           <>
-            <h1 className={styles.title}>Install Argent the easy way</h1>
-            <p className={styles.lead}>
-              Setup checks your computer first. If something required is already there, we skip it.
-              If not, we install it from this package — no separate .NET downloads.
-            </p>
+            <h1 className={styles.title}>Argent Job Scheduler Setup</h1>
             <div className={styles.promise}>
               <div>
-                <strong>Self-contained Setup.</strong> Prerequisites ship inside the installer. You
-                never chase “.Net 4.x.y.z…” from the web.
+                <strong>Argent Job Scheduler Setup</strong>
               </div>
             </div>
             <p className={styles.copy}>Close other apps if you can, then accept the license.</p>
@@ -455,8 +450,7 @@ This product is protected by U.S. Patents including 6483813; 511167; 511346; 530
                     {foundCount} already OK
                     {missingCount ? ` · ${missingCount} will install from Setup` : ""}.
                   </strong>{" "}
-                  Continue when you&apos;re ready — nothing leaves this machine for a second
-                  download.
+                  Continue when you&apos;re ready
                 </div>
               </div>
             )}
@@ -469,7 +463,7 @@ This product is protected by U.S. Patents including 6483813; 511167; 511346; 530
         return (
           <>
             <h1 className={styles.title}>What to install</h1>
-            <p className={styles.lead}>Node, operation, and products.</p>
+            <p className={styles.lead}>Node, operation, and products</p>
             <div className={styles.infoGrid}>
               <div className={styles.infoRow}>
                 <span>Account</span>
@@ -497,8 +491,8 @@ This product is protected by U.S. Patents including 6483813; 511167; 511346; 530
             <div className={styles.sectionLabel}>Operation</div>
             {(
               [
-                "Install Windows services + client programs",
-                "Install client programs only",
+                "Install Windows services and Argent Job Scheduler programs",
+                "Install Argent Job Scheduler only",
                 "Upgrade services and clients",
                 "Deinstall",
               ] as const
@@ -627,8 +621,7 @@ This product is protected by U.S. Patents including 6483813; 511167; 511346; 530
             </div>
             <div className={styles.promise}>
               <div>
-                SQL Server is the default (not CodeBase). CodeBase is fine for a small eval — not
-                for production.
+                SQL Server is the default -- CodeBase is not for production
               </div>
             </div>
             <label className={styles.check}>
@@ -725,7 +718,7 @@ This product is protected by U.S. Patents including 6483813; 511167; 511346; 530
                 />
               </div>
               <div>
-                <label className={styles.label}>Sales rep</label>
+                <label className={styles.label}>Account Manager</label>
                 <input
                   className={styles.input}
                   value={salesRep}
@@ -746,8 +739,7 @@ This product is protected by U.S. Patents including 6483813; 511167; 511346; 530
             <p className={styles.muted}>{progress}%</p>
             {missingCount > 0 && (
               <p className={styles.copy} style={{ marginTop: 16 }}>
-                Missing prerequisites are being laid down from the Setup package first, then Argent
-                files.
+                Missing prerequisites being installed
               </p>
             )}
           </>
@@ -766,7 +758,7 @@ This product is protected by U.S. Patents including 6483813; 511167; 511346; 530
               <li>
                 Sample queues/cmd files created. Default Queue Engine account: {machine}\{user}
               </li>
-              <li>Support: Support@Argent.com · help.Argent.com</li>
+              <li>Support: Support@Argent.com or help.Argent.com</li>
             </ul>
           </>
         );
@@ -816,7 +808,7 @@ This product is protected by U.S. Patents including 6483813; 511167; 511346; 530
           <div className={styles.sidebarInner}>
             <div className={styles.sidebarBrand}>
               <ArgentBrand />
-              <div className={styles.setupLabel}>Self-contained Setup</div>
+              <div className={styles.setupLabel}>Argent Job Scheduler Setup</div>
               <p className={styles.productLines}>
                 Job Scheduler 10.0-2401-64W-A
                 <br />
@@ -843,10 +835,11 @@ This product is protected by U.S. Patents including 6483813; 511167; 511346; 530
               </ol>
             </div>
             <p className={styles.sidebarHelp}>
-              Questions?{" "}
+              Questions --{" "}
               <a href="https://help.argent.com" target="_blank" rel="noreferrer">
                 help.Argent.com
-              </a>
+              </a>{" "}
+              or Support@Argent.com
             </p>
           </div>
         </aside>

@@ -1,0 +1,68 @@
+
+
+NO PERIOD/FULLSTOP
+FROM:
+Node, operation, and products.
+TO
+Node, operation, and products
+
+
+
+
+
+----------------------------------------------------------------------
+WINDOW / BRAND / SIDEBAR
+----------------------------------------------------------------------
+sidebar.setup_label = Argent Job Scheduler Setup
+sidebar.help = Questions -- help.Argent.com or Support@Argent.com
+
+
+
+----------------------------------------------------------------------
+STEP 1 — START
+----------------------------------------------------------------------
+start.title = Argent Job Scheduler Setup
+DELETE>>> start.lead = Setup checks your computer first. If something required is already there, we skip it. If not, we install it from this package — no separate .NET downloads.
+start.promise_bold = = Argent Job Scheduler Setup
+DELETE>>> start.promise_rest = Prerequisites ship inside the installer. You never chase “.Net 4.x.y.z…” from the web.
+start.copy = Close other apps if you can, then accept the license.
+
+----------------------------------------------------------------------
+STEP 2 — SYSTEM CHECK
+----------------------------------------------------------------------
+check.summary_rest = Continue when you're ready
+check.complete_bold = Check complete
+
+DELETE>>> check.complete_rest = Found items stay as-is. Missing items install from this Setup package — no web download.
+
+----------------------------------------------------------------------
+STEP 3 — WHAT TO INSTALL
+----------------------------------------------------------------------
+
+install.op.1 = Install Windows services and Argent Job Scheduler programs
+install.op.2 = Install Argent Job Scheduler only
+
+
+
+----------------------------------------------------------------------
+STEP 5 — ACCOUNT & CONTACT
+----------------------------------------------------------------------
+account.sql_note = SQL Server is the default -- CodeBase is not for production
+account.label.sales_rep = Account Manager
+
+----------------------------------------------------------------------
+STEP 6 — INSTALLING
+----------------------------------------------------------------------
+
+installing.note = Missing prerequisites being installed
+
+----------------------------------------------------------------------
+STEP 7 — DONE
+----------------------------------------------------------------------
+
+done.bullet.support = Support: Support@Argent.com or help.Argent.com
+
+----------------------------------------------------------------------
+END
+----------------------------------------------------------------------
+DELETE>>> Edit freely and send back. Prefer keeping keys on the left unchanged.

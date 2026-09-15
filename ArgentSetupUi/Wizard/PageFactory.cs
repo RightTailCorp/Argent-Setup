@@ -144,9 +144,9 @@ namespace Argent.SetupUi.Wizard
             else decline.IsChecked = true;
 
             return Shell(
-                "Install Argent the easy way",
-                "Setup checks your computer first. If something required is already there, we skip it. If not, we install it from this package — no separate .NET downloads.",
-                Promise("Self-contained Setup.", "Prerequisites ship inside the installer. You never chase “.Net 4.x.y.z…” from the web."),
+                "Argent Job Scheduler Setup",
+                null,
+                Promise("Argent Job Scheduler Setup", ""),
                 new TextBlock
                 {
                     Text = "Close other apps if you can, then accept the license.",
@@ -229,7 +229,7 @@ namespace Argent.SetupUi.Wizard
             }
 
             UIElement summary = state.ScanDone
-                ? Promise("Check complete.", "Found items stay as-is. Missing items install from this Setup package — no web download.")
+                ? Promise("Check complete", "Continue when you're ready")
                 : (UIElement)new TextBlock
                 {
                     Text = "Checking your system… this takes a few seconds.",
@@ -282,8 +282,8 @@ namespace Argent.SetupUi.Wizard
         {
             var ops = new[]
             {
-                "Install Windows services + client programs",
-                "Install client programs only",
+                "Install Windows services and Argent Job Scheduler programs",
+                "Install Argent Job Scheduler only",
                 "Upgrade services and clients",
                 "Deinstall"
             };
@@ -314,7 +314,7 @@ namespace Argent.SetupUi.Wizard
 
             return Shell(
                 "What to install",
-                "Node, operation, and products.",
+                "Node, operation, and products",
                 Info("Account", state.CurrentUser),
                 Info("Domain / node", state.MachineName),
                 Label("Install on node"),
@@ -433,7 +433,7 @@ namespace Argent.SetupUi.Wizard
                 pwd,
                 Label("Confirm"),
                 confirm,
-                Promise("SQL Server is the default.", "CodeBase is fine for a small eval — not for production."),
+                Promise("SQL Server is the default -- CodeBase is not for production", ""),
                 sql,
                 new TextBlock
                 {
@@ -461,7 +461,7 @@ namespace Argent.SetupUi.Wizard
                 country,
                 Label("Phone"),
                 phone,
-                Label("Sales rep"),
+                Label("Account Manager"),
                 salesRep);
         }
 
@@ -475,7 +475,20 @@ namespace Argent.SetupUi.Wizard
                 Foreground = Brush("#64748B"),
                 Margin = new Thickness(0, 8, 0, 0)
             };
-            var panel = Shell("Installing", null, status, bar, pct);
+            var panel = Shell(
+                "Installing",
+                null,
+                status,
+                bar,
+                pct,
+                new TextBlock
+                {
+                    Text = "Missing prerequisites being installed",
+                    FontSize = 14,
+                    Foreground = Brush("#475569"),
+                    Margin = new Thickness(0, 16, 0, 0),
+                    TextWrapping = TextWrapping.Wrap
+                });
             panel.Tag = new ProgressRefs(status, bar, pct);
             return panel;
         }
@@ -507,7 +520,7 @@ namespace Argent.SetupUi.Wizard
                         "• Prerequisites checked — existing ones skipped; missing ones installed from Setup.\n\n" +
                         "• Sample jobs are ready in Job Scheduler.\n\n" +
                         "• Default Queue Engine account: " + state.DefaultQueueAccount + "\n\n" +
-                        "• Support: Support@Argent.com · help.Argent.com"
+                        "• Support: Support@Argent.com or help.Argent.com"
                 });
         }
     }
